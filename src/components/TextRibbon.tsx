@@ -13,14 +13,14 @@ const TextRibbon: React.FC = () => {
       
       gsap.to(ribbon, {
         x: -ribbonWidth / 2,
-        duration: 40,
+        duration: 80,
         ease: 'none',
         repeat: -1,
       });
     }
   }, []);
 
-  const ribbonText = "CINEMATIC FASHION • VISUAL STORYTELLER • CREATIVE DIRECTOR • POST-PRODUCTION SPECIALIST • MOTION GRAPHICS • COLOR GRADING EXPERT • ";
+  const ribbonText = "I AM NOT JUST AN EDITOR I KNOW HOW TO GRAB ATTENTION • GREW MY CHANNEL FROM 0 TO 5000 FOLLOWERS IN JUST 6 MONTHS • ";
 
   return (
     <div className="py-12 bg-gradient-to-r from-orange-500 to-orange-400 overflow-hidden relative">
@@ -31,7 +31,7 @@ const TextRibbon: React.FC = () => {
       >
         {Array.from({ length: 4 }, (_, i) => (
           <span key={i} className="text-3xl md:text-4xl font-display font-black text-black tracking-[0.3em] px-12">
-            {Array(10).fill("Cinematic Fashion • Visual Storytelling • ").map((text, j) => (
+            {Array(10).fill(ribbonText).map((text, j) => (
               <span key={j}>{text}</span>
             ))}
           </span>
