@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CINEMATIC - Premium Video Editor Portfolio</title>
+    <meta name="description" content="Award-winning video editor specializing in cinematic storytelling, color grading, and post-production excellence. Creating visual narratives that captivate and inspire.">
+    <meta name="keywords" content="video editing, post production, color grading, motion graphics, cinematic, video editor, film editing, visual storytelling">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CINEMATIC - Premium Video Editor Portfolio">
+    <meta property="og:description" content="Award-winning video editor creating cinematic experiences">
+    <meta property="og:url" content="">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="CINEMATIC - Premium Video Editor Portfolio">
+    <meta property="twitter:description" content="Award-winning video editor creating cinematic experiences">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Loading screen */
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #010409 0%, #0d1117 50%, #212529 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.8s ease-out;
+      }
+      
+      .loading-content {
+        text-align: center;
+        color: white;
+      }
+      
+      .loading-bar {
+        width: 300px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 1px;
+        overflow: hidden;
+        position: relative;
+        margin-top: 20px;
+      }
+      
+      .loading-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #FF4500 0%, #FF6B35 50%, #FFB366 100%);
+        animation: loading 2.5s ease-in-out infinite;
+      }
+      
+      @keyframes loading {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+      
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #010409;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #FF4500 0%, #FF6B35 100%);
+        border-radius: 3px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #FF6B35 0%, #FFB366 100%);
+      }
+
+      /* Noise texture */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading">
+      <div class="loading-content">
+        <div style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: 2px;">
+          CINEMATIC
+        </div>
+        <div style="color: #8892b0; font-size: 14px; font-family: 'Inter', sans-serif; letter-spacing: 1px;">
+          CRAFTING VISUAL STORIES
+        </div>
+        <div class="loading-bar"></div>
+      </div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Hide loading screen when page is loaded
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const loading = document.getElementById('loading');
+          loading.style.opacity = '0';
+          setTimeout(function() {
+            loading.style.display = 'none';
+          }, 800);
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>
