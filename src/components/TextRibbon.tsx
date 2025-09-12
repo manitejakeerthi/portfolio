@@ -13,7 +13,7 @@ const TextRibbon: React.FC = () => {
       
       gsap.to(ribbon, {
         x: -ribbonWidth / 2,
-        duration: 100,
+        duration: 15,
         ease: 'none',
         repeat: -1,
       });
