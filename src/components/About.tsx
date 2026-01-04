@@ -73,7 +73,7 @@ const About: React.FC = () => {
 
   const stats = [
     { icon: Video, value: 200, suffix: '+', label: 'Projects Completed' },
-    { icon: Users, value: 50, suffix: '+', label: 'Happy Clients' },
+    { icon: Users, value: 12, suffix: '+', label: 'Happy Clients' },
     { icon: DollarSign, value: 100, suffix: '+', label: 'Revenue Generated' },
     { icon: Zap, value: 5, suffix: '+', label: 'Years Experience' }
   ];

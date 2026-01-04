@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -11,51 +11,75 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TextRibbon from './components/TextRibbon';
 import ThumbnailCarousel from './components/ThumbnailCarousel';
+import VideoShowcase from './components/VideoShowcase';
 import VintageBackground from './components/VintageBackground';
 import FlowCursor from './components/FlowCursor';
 import PerlinReveal from './components/PerlinReveal';
 import SoftwareLogosTicker from './components/SoftwareLogosTicker';
+import { useShouldShowHeavyEffects } from './hooks/usePerformance';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const lenisRef = useRef<Lenis | null>(null);
+  const rafIdRef = useRef<number>();
+  const showHeavyEffects = useShouldShowHeavyEffects();
+
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
     });
 
-    function raf(time: number) {
+    lenisRef.current = lenis;
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+      rafIdRef.current = requestAnimationFrame(raf);
+    };
+    rafIdRef.current = requestAnimationFrame(raf);
+
+    ScrollTrigger.refresh();
 
     return () => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      gsap.ticker.remove((time) => {
+        lenis.raf(time * 1000);
+      });
       lenis.destroy();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
   return (
     <div className="text-white overflow-x-hidden relative">
       <VintageBackground />
-      <FlowCursor />
-      <PerlinReveal />
+      
+      {showHeavyEffects && <FlowCursor />}
+      {showHeavyEffects && <PerlinReveal />}
       
       <Header />
       <Hero />
-      <TextRibbon />  {/* Your existing ribbon stays */}
+      <TextRibbon />
       <About />
-      <SoftwareLogosTicker />  {/* New software logos ticker */}
+      <SoftwareLogosTicker />
       <ThumbnailCarousel />
+      <VideoShowcase />
       <Portfolio />
       <Services />
       <Contact />

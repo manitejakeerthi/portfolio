@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
                 <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-3 mx-auto">
                   <Film className="w-6 h-6 text-orange-500" />
                 </div>
-                <div className="text-2xl font-bold text-white font-display">50+</div>
+                <div className="text-2xl font-bold text-white font-display">12+</div>
                 <div className="text-white/60 text-sm font-body">Clients</div>
               </div>
             </div>

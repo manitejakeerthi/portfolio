@@ -55,19 +55,7 @@ const Portfolio: React.FC = () => {
       tags: ['AI/ML', 'Education', 'Career Development'],
       isInstagram: false
     },
-    {
-      id: 3,
-      title: 'Creative Showcase',
-      category: 'Long Form',
-      thumbnail: 'https://img.youtube.com/vi/TAO6fvQH-Pg/maxresdefault.jpg',
-      video: 'https://www.youtube.com/embed/TAO6fvQH-Pg',
-      description: 'A creative showcase demonstrating advanced video editing techniques and visual storytelling.',
-      client: 'Creative Project',
-      year: '2024',
-      duration: '8:45',
-      tags: ['Creative', 'Showcase', 'Visual Effects'],
-      isInstagram: false
-    },
+
     {
       id: 4,
       title: 'Brand Campaign',

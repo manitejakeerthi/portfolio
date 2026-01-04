@@ -36,7 +36,7 @@ const Header: React.FC = () => {
     >
       <nav className="container mx-auto px-6 py-3">
         <div className="bg-white/8 backdrop-blur-md rounded-2xl px-6 py-3 mx-auto max-w-5xl border border-white/10">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center flex-1">
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               {navItems.map((item, index) => (
@@ -54,18 +54,6 @@ const Header: React.FC = () => {
                 </motion.a>
               ))}
             </div>
-
-            {/* CTA Button */}
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2 }}
-              whileHover={{ scale: 1.05, y: -1 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden md:block px-5 py-2.5 bg-gradient-to-r from-orange-500/80 to-orange-400/80 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 font-body tracking-wide text-sm backdrop-blur-sm"
-            >
-              Let's go!
-            </motion.button>
 
             {/* Mobile Menu Button */}
             <button

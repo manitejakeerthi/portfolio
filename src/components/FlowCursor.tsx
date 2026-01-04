@@ -1,69 +1,91 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { gsap } from 'gsap';
 
 const FlowCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const trailRef = useRef<HTMLDivElement[]>([]);
+  const trailRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rafIdRef = useRef<number>();
+  const mousePos = useRef({ x: 0, y: 0 });
+  const cursorPos = useRef({ x: 0, y: 0 });
+  const isVisible = useRef(false);
 
   useEffect(() => {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-
+    const trails = trailRefs.current.filter(Boolean) as HTMLDivElement[];
+    
     const updateMouse = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
+      
+      if (!isVisible.current) {
+        isVisible.current = true;
+        gsap.set(cursor, { opacity: 1 });
+        trails.forEach(trail => gsap.set(trail, { opacity: 1 }));
+      }
+    };
+
+    const handleMouseLeave = () => {
+      isVisible.current = false;
+      gsap.set(cursor, { opacity: 0 });
+      trails.forEach(trail => gsap.set(trail, { opacity: 0 }));
     };
 
     const animateCursor = () => {
-      cursorX += (mouseX - cursorX) * 0.1;
-      cursorY += (mouseY - cursorY) * 0.1;
+      const lerp = 0.12;
+      cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * lerp;
+      cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * lerp;
 
-      gsap.set(cursor, {
-        x: cursorX - 10,
-        y: cursorY - 10,
+      cursor.style.transform = `translate3d(${cursorPos.current.x - 10}px, ${cursorPos.current.y - 10}px, 0)`;
+
+      trails.forEach((trail, index) => {
+        const delay = (index + 1) * 0.08;
+        const trailLerp = lerp * (1 - delay);
+        const trailX = cursorPos.current.x + (mousePos.current.x - cursorPos.current.x) * delay;
+        const trailY = cursorPos.current.y + (mousePos.current.y - cursorPos.current.y) * delay;
+        trail.style.transform = `translate3d(${trailX - 4}px, ${trailY - 4}px, 0)`;
+        trail.style.opacity = String(0.6 - index * 0.07);
       });
 
-      // Animate trail
-      trailRef.current.forEach((trail, index) => {
-        const delay = (index + 1) * 0.05;
-        gsap.to(trail, {
-          x: cursorX - 5,
-          y: cursorY - 5,
-          duration: 0.3 + delay,
-          ease: 'power2.out',
-        });
-      });
-
-      requestAnimationFrame(animateCursor);
+      rafIdRef.current = requestAnimationFrame(animateCursor);
     };
 
-    window.addEventListener('mousemove', updateMouse);
-    animateCursor();
+    gsap.set(cursor, { opacity: 0 });
+    trails.forEach(trail => gsap.set(trail, { opacity: 0 }));
+
+    window.addEventListener('mousemove', updateMouse, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+    rafIdRef.current = requestAnimationFrame(animateCursor);
 
     return () => {
       window.removeEventListener('mousemove', updateMouse);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      gsap.killTweensOf([cursor, ...trails]);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 hidden lg:block">
+    <div className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block">
       <div
         ref={cursorRef}
-        className="absolute w-5 h-5 bg-orange-500/60 rounded-full mix-blend-difference"
+        className="absolute w-5 h-5 rounded-full will-change-transform"
+        style={{ 
+          background: 'radial-gradient(circle, rgba(255,69,0,0.8) 0%, rgba(255,107,53,0.4) 100%)',
+          boxShadow: '0 0 20px rgba(255,69,0,0.5)',
+        }}
       />
-      {Array.from({ length: 8 }, (_, i) => (
+      {Array.from({ length: 6 }, (_, i) => (
         <div
           key={i}
-          ref={(el) => {
-            if (el) trailRef.current[i] = el;
+          ref={(el) => { trailRefs.current[i] = el; }}
+          className="absolute w-2 h-2 rounded-full will-change-transform"
+          style={{ 
+            background: `rgba(255, ${100 + i * 20}, ${50 + i * 10}, ${0.5 - i * 0.06})`,
           }}
-          className="absolute w-2 h-2 bg-orange-400/40 rounded-full"
-          style={{ opacity: 1 - i * 0.1 }}
         />
       ))}
     </div>

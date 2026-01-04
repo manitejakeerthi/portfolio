@@ -3,12 +3,10 @@ import Ticker from './Ticker';
 
 const ThumbnailCarousel: React.FC = () => {
   const portfolioImages = [
-  'https://i3.ytimg.com/vi/IVRogmZaInY/maxresdefault.jpg',
-  'https://i3.ytimg.com/vi/ARa0VCM8JPw/maxresdefault.jpg', 
-  'https://i3.ytimg.com/vi/645lwvhE1mE/maxresdefault.jpg',
-  'https://i3.ytimg.com/vi/74dqM_xtvAA/maxresdefault.jpg',
-  'https://i3.ytimg.com/vi/WlnwJDeZN9g/maxresdefault.jpg',
-  'https://i3.ytimg.com/vi/xDZhrzVTMlw/maxresdefault.jpg',
+  'https://img.youtube.com/vi/pUMdAkHBVS0/maxresdefault.jpg',
+  'https://img.youtube.com/vi/EKcVRD8OpzQ/maxresdefault.jpg', 
+  'https://img.youtube.com/vi/tjH87saVq_Y/maxresdefault.jpg',
+  'https://img.youtube.com/vi/OIwItsfOxoM/maxresdefault.jpg',
 ];
 
 
@@ -16,7 +14,7 @@ const ThumbnailCarousel: React.FC = () => {
     <section className="py-20 bg-black">
       <Ticker 
         images={portfolioImages} 
-        speed={40} 
+        speed={20} 
         height="300px" 
       />
     </section>

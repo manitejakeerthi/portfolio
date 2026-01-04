@@ -3,26 +3,31 @@ import * as THREE from 'three';
 
 const PerlinReveal: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<THREE.Scene>();
-  const rendererRef = useRef<THREE.WebGLRenderer>();
-  const materialRef = useRef<THREE.ShaderMaterial>();
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const rafIdRef = useRef<number>();
+  const isAnimatingRef = useRef(true);
 
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Scene setup
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    
+    const renderer = new THREE.WebGLRenderer({ 
+      alpha: true, 
+      antialias: false,
+      powerPreference: 'high-performance'
+    });
     rendererRef.current = renderer;
     
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     mountRef.current.appendChild(renderer.domElement);
 
-    // Shader material for Perlin noise effect
     const vertexShader = `
       varying vec2 vUv;
       void main() {
@@ -37,22 +42,10 @@ const PerlinReveal: React.FC = () => {
       uniform float uProgress;
       varying vec2 vUv;
 
-      // Perlin noise function
-      vec3 mod289(vec3 x) {
-        return x - floor(x * (1.0 / 289.0)) * 289.0;
-      }
-
-      vec4 mod289(vec4 x) {
-        return x - floor(x * (1.0 / 289.0)) * 289.0;
-      }
-
-      vec4 permute(vec4 x) {
-        return mod289(((x*34.0)+1.0)*x);
-      }
-
-      vec4 taylorInvSqrt(vec4 r) {
-        return 1.79284291400159 - 0.85373472095314 * r;
-      }
+      vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+      vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
 
       float snoise(vec3 v) {
         const vec2 C = vec2(1.0/6.0, 1.0/3.0);
@@ -117,30 +110,25 @@ const PerlinReveal: React.FC = () => {
       void main() {
         vec2 uv = vUv;
         
-        // Create flowing Perlin noise
         float noise1 = snoise(vec3(uv * 3.0, uTime * 0.1));
         float noise2 = snoise(vec3(uv * 6.0, uTime * 0.15));
         float noise3 = snoise(vec3(uv * 12.0, uTime * 0.2));
         
         float combinedNoise = noise1 * 0.5 + noise2 * 0.3 + noise3 * 0.2;
         
-        // Create reveal mask
         float reveal = smoothstep(0.0, 1.0, uProgress + combinedNoise * 0.3);
         
-        // Create gradient background
-        vec3 color1 = vec3(0.004, 0.016, 0.035); // #010409
-        vec3 color2 = vec3(0.051, 0.067, 0.090); // #0d1117
-        vec3 color3 = vec3(0.129, 0.161, 0.180); // #212529
+        vec3 color1 = vec3(0.004, 0.016, 0.035);
+        vec3 color2 = vec3(0.051, 0.067, 0.090);
+        vec3 color3 = vec3(0.129, 0.161, 0.180);
         
         vec3 gradient = mix(color1, color2, uv.y);
         gradient = mix(gradient, color3, smoothstep(0.3, 0.8, uv.y));
         
-        // Add subtle orange glow
-        vec3 accent = vec3(1.0, 0.271, 0.0); // #FF4500
+        vec3 accent = vec3(1.0, 0.271, 0.0);
         float glow = smoothstep(0.8, 0.0, length(uv - vec2(0.5)));
         gradient += accent * glow * 0.05;
         
-        // Apply reveal effect
         float alpha = reveal * (0.95 + combinedNoise * 0.05);
         
         gl_FragColor = vec4(gradient, alpha);
@@ -163,44 +151,77 @@ const PerlinReveal: React.FC = () => {
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    // Animation loop
-    const animate = () => {
-      if (materialRef.current) {
-        materialRef.current.uniforms.uTime.value += 0.01;
-        
-        // Progress based on scroll
-        const scrollProgress = Math.min(window.scrollY / (window.innerHeight * 0.8), 1);
-        materialRef.current.uniforms.uProgress.value = scrollProgress;
-      }
-      
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+    let lastScrollY = 0;
+    const handleScroll = () => {
+      lastScrollY = window.scrollY;
     };
-    animate();
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Handle resize
+    const animate = () => {
+      if (!isAnimatingRef.current || !rendererRef.current || !materialRef.current) {
+        rafIdRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      materialRef.current.uniforms.uTime.value += 0.008;
+      
+      const scrollProgress = Math.min(lastScrollY / (window.innerHeight * 0.8), 1);
+      materialRef.current.uniforms.uProgress.value = scrollProgress;
+      
+      rendererRef.current.render(scene, camera);
+      rafIdRef.current = requestAnimationFrame(animate);
+    };
+    rafIdRef.current = requestAnimationFrame(animate);
+
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      renderer.setSize(width, height);
+      if (rendererRef.current) {
+        rendererRef.current.setSize(width, height);
+      }
       if (materialRef.current) {
         materialRef.current.uniforms.uResolution.value.set(width, height);
       }
     };
 
+    const handleVisibilityChange = () => {
+      isAnimatingRef.current = !document.hidden;
+    };
+
     window.addEventListener('resize', handleResize);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);
       }
+      
+      geometry.dispose();
+      material.dispose();
       renderer.dispose();
+      
+      sceneRef.current = null;
+      rendererRef.current = null;
+      materialRef.current = null;
     };
   }, []);
 
-  return <div ref={mountRef} className="fixed inset-0 z-0" />;
+  return (
+    <div 
+      ref={mountRef} 
+      className="fixed inset-0 z-0 pointer-events-none" 
+      style={{ willChange: 'transform' }}
+    />
+  );
 };
 
 export default PerlinReveal;

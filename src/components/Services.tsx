@@ -10,7 +10,7 @@ const Services: React.FC = () => {
       title: 'Video Editing',
       description: 'Professional video editing with cinematic quality and storytelling expertise',
       features: ['Sound Designing', 'Advanced Transitions with Cinematic Touch', 'Fast / Low Pace', 'Color Grading'],
-      price: 'From $10/hr',
+      price: 'From $45/hr',
       popular: false
     },
     {
@@ -18,7 +18,7 @@ const Services: React.FC = () => {
       title: 'AI Clone Editing',
       description: 'Clone client video and audio then generate realistic edits',
       features: ['Color Matching', 'Cinematic Looks', 'Skin Tone Correction', 'Realistic Editing'],
-      price: 'From $50/hr',
+      price: 'Talk to us',
       popular: true
     },
     {
@@ -121,10 +121,11 @@ const Services: React.FC = () => {
               
               <div className="mt-auto">
                 <div className="text-2xl font-bold text-accent-white mb-6 font-display">{service.price}</div>
-                <motion.button
+                <motion.a
+                  href="mailto:keerthimaniteja003@gmail.com"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center group ${
+                  className={`w-full py-4 rounded-2xl font-medium transition-all duration-300 flex items-center justify-center group block text-center ${
                     service.popular
                       ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-white hover:shadow-lg hover:shadow-accent-primary/25'
                       : 'bg-white/5 text-accent-white hover:bg-white/10 border border-accent-border'
@@ -132,7 +133,7 @@ const Services: React.FC = () => {
                 >
                   Get Started
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
           ))}
@@ -154,20 +155,24 @@ const Services: React.FC = () => {
               that perfectly fits your vision, timeline, and budget.
             </AnimatedTextReveal>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <motion.button
+              <motion.a
+                href="mailto:keerthimaniteja003@gmail.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-medium rounded-full hover:shadow-xl hover:shadow-accent-primary/30 transition-all duration-300 font-body tracking-wide"
+                className="px-10 py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-medium rounded-full hover:shadow-xl hover:shadow-accent-primary/30 transition-all duration-300 font-body tracking-wide block text-center"
               >
                 GET CUSTOM QUOTE
-              </motion.button>
-              <motion.button
+              </motion.a>
+              <motion.a
+                href="https://wa.me/916302078588"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 border border-accent-border text-accent-white font-medium rounded-full hover:bg-accent-primary/10 transition-all duration-300 font-body tracking-wide"
+                className="px-10 py-4 border border-accent-border text-accent-white font-medium rounded-full hover:bg-accent-primary/10 transition-all duration-300 font-body tracking-wide block text-center"
               >
                 SCHEDULE CONSULTATION
-              </motion.button>
+              </motion.a>
             </div>
           </div>
         </motion.div>
