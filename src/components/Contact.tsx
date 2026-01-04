@@ -136,7 +136,15 @@ Sent from Portfolio Contact Form
   };
 
   return (
-    <section id="contact" className="py-32 bg-dark-950 relative">
+    <section id="contact" className="py-32 bg-dark-950 relative" aria-label="Hire Freelance Video Editor in India - Contact Mani Teja Keerthi">
+      {/* Hidden SEO content for contact */}
+      <div className="sr-only">
+        <h2>Hire a Freelance Video Editor in India</h2>
+        <p>If you are looking to hire a freelance video editor in India for YouTube, reels, shorts, podcasts, or tech videos, feel free to contact me. I am open to one-time projects as well as long-term collaborations.</p>
+        <p>Contact Mani Teja Keerthi for professional video editing services. Email: keerthimaniteja003@gmail.com. Phone: +91 6302078588. Location: Hyderabad, India. Fast turnaround and affordable rates.</p>
+        <a href="https://wa.me/916302078588">Contact Me on WhatsApp for video editing services</a>
+        <a href="mailto:keerthimaniteja003@gmail.com">Email freelance video editor Mani Teja Keerthi</a>
+      </div>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

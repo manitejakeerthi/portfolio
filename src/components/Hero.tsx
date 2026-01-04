@@ -90,7 +90,10 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section id="home" className="relative h-screen overflow-hidden">
+    <section id="home" className="relative h-screen overflow-hidden" aria-label="Freelance Video Editor in India - Mani Teja Keerthi Portfolio">
+      {/* Hidden H1 for SEO - Visually hidden but readable by search engines */}
+      <h1 className="sr-only">Freelance Video Editor in India for YouTube, Reels & Short-Form Content - Mani Teja Keerthi</h1>
+      
       <div className="absolute inset-0">
         <div 
           className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800"
@@ -180,7 +183,7 @@ const Hero: React.FC = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="p-4 bg-white/10 backdrop-blur-md rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
-          aria-label={isPlaying ? 'Pause video' : 'Play video'}
+          aria-label={isPlaying ? 'Pause freelance video editor portfolio reel' : 'Play freelance video editor portfolio reel by Mani Teja Keerthi'}
         >
           {isPlaying ? (
             <Pause className="w-5 h-5 text-white" />
@@ -194,7 +197,7 @@ const Hero: React.FC = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="p-4 bg-white/10 backdrop-blur-md rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
-          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+          aria-label={isMuted ? 'Unmute video editing portfolio showcase' : 'Mute video editing portfolio showcase'}
         >
           {isMuted ? (
             <VolumeX className="w-5 h-5 text-white" />
@@ -215,7 +218,7 @@ const Hero: React.FC = () => {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center text-white/70 hover:text-white transition-colors cursor-pointer"
-          aria-label="Scroll to next section"
+          aria-label="Scroll to view video editing services by freelance editor Mani Teja Keerthi India"
         >
           <span className="text-sm font-mono tracking-widest mb-2 uppercase">Scroll</span>
           <ChevronDown className="w-6 h-6" />

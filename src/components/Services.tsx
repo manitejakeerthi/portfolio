@@ -56,7 +56,31 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="py-32 bg-black relative">
+    <section id="services" className="py-32 bg-black relative" aria-label="Video Editing Services by Mani Teja Keerthi - Freelance Editor India">
+      {/* Hidden SEO content for services */}
+      <div className="sr-only">
+        <h2>Video Editing Services I Offer - Freelance Video Editor India</h2>
+        <p>I offer professional video editing services for all types of content. Whether you are a creator, brand, or business, I can handle end-to-end editing with fast turnaround.</p>
+        <ul>
+          <li>YouTube Video Editing - Professional YouTube video editing services for creators and brands across India and globally</li>
+          <li>Instagram Reels & Shorts Editing - Short-form content optimized for attention, engagement, and watch time</li>
+          <li>Short-Form Content Editing - High-impact reels and short videos for social media growth</li>
+          <li>Podcast Video Editing - Professional podcast video production and editing</li>
+          <li>Tech & Product Video Editing - Tech videos, tutorials, demos, SaaS explainers with clarity and structure</li>
+          <li>Personal Brand Video Editing - Build your personal brand with professional video content</li>
+          <li>Social Media Video Editing - Content optimized for all social media platforms</li>
+          <li>Promotional & Brand Videos - High-quality promotional videos for businesses</li>
+        </ul>
+        <h3>Why Clients Choose Me as Their Video Editor</h3>
+        <ul>
+          <li>Freelance video editor based in India</li>
+          <li>Experience with multiple content formats</li>
+          <li>Strong understanding of social media algorithms</li>
+          <li>Clean, modern editing style</li>
+          <li>Fast communication and delivery</li>
+          <li>Affordable pricing compared to agencies</li>
+        </ul>
+      </div>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

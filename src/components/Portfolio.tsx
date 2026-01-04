@@ -175,7 +175,13 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <section id="portfolio" className="py-32 bg-black relative">
+    <section id="portfolio" className="py-32 bg-black relative" aria-label="Video Editing Portfolio - Mani Teja Keerthi Freelance Editor India">
+      {/* Hidden SEO content for portfolio */}
+      <div className="sr-only">
+        <h2>My Video Editing Portfolio - Freelance Video Editor India</h2>
+        <p>You can explore my editing portfolio below. It includes YouTube videos, Instagram reels, short-form edits, and brand content across different niches. Professional video editing work by Mani Teja Keerthi, freelance video editor based in India.</p>
+        <p>Portfolio includes: YouTube video editing samples, Instagram reels editing examples, short-form content for social media, podcast video editing, tech video production, brand promotional videos.</p>
+      </div>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

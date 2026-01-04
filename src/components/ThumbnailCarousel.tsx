@@ -11,7 +11,12 @@ const ThumbnailCarousel: React.FC = () => {
 
 
   return (
-    <section className="py-20 bg-black">
+    <section className="py-20 bg-black" aria-label="YouTube Video Editing Portfolio Thumbnails - Mani Teja Keerthi India">
+      {/* Hidden SEO */}
+      <div className="sr-only">
+        <h2>YouTube Video Editing Services</h2>
+        <p>I provide YouTube video editing services for creators and brands across India and globally. From long-form YouTube videos to YouTube Shorts, I focus on clean cuts, pacing, captions, sound design, and retention-focused edits.</p>
+      </div>
       <Ticker 
         images={portfolioImages} 
         speed={20} 

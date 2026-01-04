@@ -66,7 +66,7 @@ const Ticker: React.FC<TickerProps> = ({
           <img
             key={`original-${index}`}
             src={image}
-            alt={`Ticker ${index + 1}`}
+            alt={`YouTube video editing portfolio by Mani Teja Keerthi - Freelance video editor India - Project ${index + 1}`}
             loading="lazy"
             className="ticker-image flex-shrink-0 object-cover mx-4 rounded-xl border border-blue-500/60 shadow-lg transition-shadow duration-300 hover:shadow-blue-500/80"
             style={{ 
@@ -81,7 +81,7 @@ const Ticker: React.FC<TickerProps> = ({
           <img
             key={`duplicate-${index}`}
             src={image}
-            alt={`Ticker ${index + 1}`}
+            alt={`Instagram reels and short-form video editing samples - Freelance editor Mani Teja Keerthi India - Sample ${index + 1}`}
             loading="lazy"
             className="ticker-image flex-shrink-0 object-cover mx-4 rounded-xl border border-blue-500/60 shadow-lg transition-shadow duration-300 hover:shadow-blue-500/80"
             style={{ 

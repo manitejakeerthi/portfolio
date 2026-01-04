@@ -26,7 +26,12 @@ const VideoShowcase: React.FC = () => {
   ];
 
   return (
-    <section className="py-32 bg-black relative overflow-hidden">
+    <section className="py-32 bg-black relative overflow-hidden" aria-label="Instagram Reels and Short-Form Video Editing Samples - Mani Teja Keerthi">
+      {/* Hidden SEO content */}
+      <div className="sr-only">
+        <h2>Instagram Reels & Short-Form Video Editing</h2>
+        <p>Short-form content is the fastest way to grow on Instagram, YouTube Shorts, and other platforms. I edit high-impact reels and short videos that are optimized for attention, engagement, and watch time. Professional short-form video editing by Mani Teja Keerthi, freelance video editor in India.</p>
+      </div>
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-black to-black pointer-events-none"></div>
       

@@ -127,7 +127,15 @@ const About: React.FC = () => {
   };
 
   return (
-    <section id="about" className="py-32 bg-black relative">
+    <section id="about" className="py-32 bg-black relative" aria-label="About Mani Teja Keerthi - Freelance Video Editor India">
+      {/* Hidden SEO content */}
+      <h2 className="sr-only">About Mani Teja Keerthi - Freelance Video Editor in India</h2>
+      <p className="sr-only">
+        I'm Mani Teja Keerthi, a freelance video editor from India with experience editing content for creators, brands, and businesses. 
+        I work on YouTube videos, Instagram reels, short-form content, podcasts, and tech videos. 
+        My goal is to create videos that look professional, engaging, and platform-optimized.
+        Freelance video editor based in India with experience in multiple content formats and strong understanding of social media algorithms.
+      </p>
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -245,7 +253,7 @@ const About: React.FC = () => {
                 <div className="relative mr-6">
                   <img 
                     src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=200&h=200"
-                    alt="Tanu Sri - Founder"
+                    alt="Mani Teja Keerthi - Freelance Video Editor India - YouTube Reels Short-Form Content Editor"
                     className="w-24 h-24 rounded-full object-cover shadow-xl ring-4 ring-accent-primary/30 hover:ring-accent-primary/50 transition-all duration-300"
                   />
                   {/* Decorative Ring */}

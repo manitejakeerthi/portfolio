@@ -81,7 +81,7 @@ const SoftwareLogosTicker: React.FC = () => {
     >
       <img 
         src={logo.url}
-        alt={logo.name}
+        alt={`${logo.name} - Video editing software used by freelance video editor Mani Teja Keerthi India`}
         className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
         loading="lazy"
       />
