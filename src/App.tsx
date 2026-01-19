@@ -79,8 +79,8 @@ function App() {
       <About />
       <SoftwareLogosTicker />
       <ThumbnailCarousel />
-      <VideoShowcase />
       <Portfolio />
+      <VideoShowcase />
       <Services />
       <Contact />
       <Footer />

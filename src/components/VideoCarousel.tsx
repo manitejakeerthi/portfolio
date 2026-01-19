@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
-import { X, Play } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface VideoItem {
   id: number;
@@ -27,7 +27,6 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
   
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
-  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set());
 
   const heightNum = parseInt(height) || 400;
   const videoWidth = `${(heightNum * 9) / 16}px`;
@@ -78,10 +77,8 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
     }
   }, [selectedVideo]);
 
-  const handleMouseEnter = useCallback((index: number, videoId: number) => {
+  const handleMouseEnter = useCallback((index: number) => {
     setHoveredIndex(index);
-    setLoadedVideos(prev => new Set(prev).add(videoId));
-    
     gsapAnimationRef.current?.pause();
     
     const video = videoRefs.current[index];
@@ -116,7 +113,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
     gsapAnimationRef.current?.play();
   }, []);
 
-  const renderVideoCard = (video: VideoItem, index: number, isHovered: boolean, shouldLoadVideo: boolean) => (
+  const renderVideoCard = (video: VideoItem, index: number, isHovered: boolean) => (
     <div
       className="video-item flex-shrink-0 rounded-2xl shadow-xl cursor-pointer relative group overflow-hidden will-change-transform"
       style={{ 
@@ -127,25 +124,20 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
           : '0 10px 40px rgba(70, 102, 255, 0.15)',
         transition: 'box-shadow 0.5s ease-out',
       }}
-      onMouseEnter={() => handleMouseEnter(index, video.id)}
+      onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={() => handleMouseLeave(index)}
       onClick={() => handleVideoClick(video)}
     >
-      {shouldLoadVideo ? (
-        <video
-          ref={(el) => { videoRefs.current[index] = el; }}
-          src={video.url}
-          muted
-          loop
-          playsInline
-          preload="none"
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-          <Play className="w-12 h-12 text-white/50" />
-        </div>
-      )}
+      <video
+        ref={(el) => { videoRefs.current[index] = el; }}
+        src={video.url}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="w-full h-full object-cover"
+        poster={video.thumbnail}
+      />
       
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-20 rounded-2xl" />
       
@@ -170,8 +162,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
               {renderVideoCard(
                 video, 
                 index, 
-                hoveredIndex === index,
-                loadedVideos.has(video.id)
+                hoveredIndex === index
               )}
             </React.Fragment>
           ))}
@@ -181,8 +172,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
               {renderVideoCard(
                 video, 
                 index + videos.length, 
-                hoveredIndex === index + videos.length,
-                loadedVideos.has(video.id)
+                hoveredIndex === index + videos.length
               )}
             </React.Fragment>
           ))}
@@ -207,6 +197,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({
             <button
               onClick={closeModal}
               className="absolute -top-12 right-0 z-60 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 hover:scale-110"
+              aria-label="Close video modal - Freelance video editor portfolio"
             >
               <X className="w-6 h-6 text-white" />
             </button>
