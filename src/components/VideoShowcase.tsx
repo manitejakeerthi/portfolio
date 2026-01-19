@@ -19,11 +19,16 @@ const VideoShowcase: React.FC = () => {
       title: 'Product Showcase'
     },
     {
-      id: 4,
-      url: 'https://raw.githubusercontent.com/manitejakeerthi/media-assets/main/KOLORO_1709821967538%20(1).mp4',
-      title: 'KOLORO Project'
-    }
-  ];
+       id: 4,
+       url: 'https://raw.githubusercontent.com/manitejakeerthi/media-assets/main/KOLORO_1709821967538%20(1).mp4',
+       title: 'KOLORO Project'
+     },
+    {
+       id: 5,
+       url: 'https://raw.githubusercontent.com/manitejakeerthi/media-assets/main/IMG_7780_1.mp4',
+       title: 'Creative Short'
+     }
+    ];
 
   return (
     <section className="py-32 bg-black relative overflow-hidden" aria-label="Instagram Reels and Short-Form Video Editing Samples - Mani Teja Keerthi">

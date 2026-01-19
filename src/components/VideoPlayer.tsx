@@ -8,6 +8,7 @@ interface VideoPlayerProps {
   title: string;
   className?: string;
   autoPlay?: boolean;
+  isInstagram?: boolean;
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ 
