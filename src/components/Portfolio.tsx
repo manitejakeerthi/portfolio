@@ -18,6 +18,7 @@ interface Project {
   duration: string;
   tags: string[];
   isInstagram?: boolean;
+  showReferenceBadge?: boolean;
 }
 
 const Portfolio: React.FC = () => {
@@ -30,17 +31,18 @@ const Portfolio: React.FC = () => {
   // Your actual Long Form YouTube videos
   const longFormProjects: Project[] = [
     {
-      id: 1,
-      title: 'Men\'s Fashion Gadgets 2025',
+      id: 5,
+      title: 'Documentary Style',
       category: 'Long Form',
-      thumbnail: 'https://img.youtube.com/vi/WuvmUvap3uU/maxresdefault.jpg',
-      video: 'https://www.youtube.com/embed/WuvmUvap3uU',
-      description: 'Top 5 most underrated and useful self-care gadgets for men including hair oil applicators, scalp massagers, and beard shapers.',
-      client: 'YouTube Channel',
-      year: '2025',
-      duration: '4:29',
-      tags: ['Lifestyle', 'Product Review', 'Men\'s Grooming'],
-      isInstagram: false
+      thumbnail: 'https://img.youtube.com/vi/xbCFaEwnTRo/maxresdefault.jpg',
+      video: 'https://www.youtube.com/embed/xbCFaEwnTRo',
+      description: 'Documentary-style video featuring authentic storytelling and cinematic production values.',
+      client: 'Documentary Project',
+      year: '2024',
+      duration: '12:15',
+      tags: ['Documentary', 'Storytelling', 'Cinematic'],
+      isInstagram: false,
+      showReferenceBadge: true
     },
     {
       id: 2,
@@ -53,9 +55,9 @@ const Portfolio: React.FC = () => {
       year: '2025',
       duration: '13:00',
       tags: ['AI/ML', 'Education', 'Career Development'],
-      isInstagram: false
+      isInstagram: false,
+      showReferenceBadge: true
     },
-
     {
       id: 4,
       title: 'Brand Campaign',
@@ -67,19 +69,20 @@ const Portfolio: React.FC = () => {
       year: '2024',
       duration: '6:30',
       tags: ['Branding', 'Commercial', 'Product'],
-      isInstagram: false
+      isInstagram: false,
+      showReferenceBadge: true
     },
     {
-      id: 5,
-      title: 'Documentary Style',
+      id: 1,
+      title: 'Men\'s Fashion Gadgets 2025',
       category: 'Long Form',
-      thumbnail: 'https://img.youtube.com/vi/xbCFaEwnTRo/maxresdefault.jpg',
-      video: 'https://www.youtube.com/embed/xbCFaEwnTRo',
-      description: 'Documentary-style video featuring authentic storytelling and cinematic production values.',
-      client: 'Documentary Project',
-      year: '2024',
-      duration: '12:15',
-      tags: ['Documentary', 'Storytelling', 'Cinematic'],
+      thumbnail: 'https://img.youtube.com/vi/WuvmUvap3uU/maxresdefault.jpg',
+      video: 'https://www.youtube.com/embed/WuvmUvap3uU',
+      description: 'Top 5 most underrated and useful self-care gadgets for men including hair oil applicators, scalp massagers, and beard shapers.',
+      client: 'YouTube Channel',
+      year: '2025',
+      duration: '4:29',
+      tags: ['Lifestyle', 'Product Review', 'Men\'s Grooming'],
       isInstagram: false
     },
     {
@@ -109,19 +112,6 @@ const Portfolio: React.FC = () => {
       isInstagram: false
     },
     {
-      id: 8,
-      title: 'Video Project 2',
-      category: 'Long Form',
-      thumbnail: 'https://img.youtube.com/vi/WuvmUvap3uU/maxresdefault.jpg',
-      video: 'https://www.youtube.com/embed/WuvmUvap3uU',
-      description: 'Dynamic video production showcasing creative editing.',
-      client: 'Client',
-      year: '2024',
-      duration: '3:00',
-      tags: ['Creative', 'Editing', 'Production'],
-      isInstagram: false
-    },
-    {
       id: 9,
       title: 'Video Project 3',
       category: 'Long Form',
@@ -136,21 +126,8 @@ const Portfolio: React.FC = () => {
     }
   ];
 
-  // Your actual Instagram Short Form content
+  // Your actual Short Form content
   const shortFormProjects: Project[] = [
-    {
-      id: 101,
-      title: 'Creative Instagram Reel #1',
-      category: 'Short Form',
-      thumbnail: 'https://via.placeholder.com/400x600/FF4500/FFFFFF?text=Instagram+Reel+1',
-      video: 'https://www.instagram.com/reel/C3M9pOnOMqq/',
-      description: 'Dynamic short-form content showcasing creative editing and visual storytelling techniques.',
-      client: 'Social Media',
-      year: '2024',
-      duration: '0:30',
-      tags: ['Short Form', 'Creative', 'Social Media'],
-      isInstagram: true
-    },
     {
       id: 102,
       title: 'YouTube Short #1',
@@ -176,19 +153,6 @@ const Portfolio: React.FC = () => {
       duration: '0:60',
       tags: ['Short Form', 'Dynamic', 'YouTube'],
       isInstagram: false
-    },
-    {
-      id: 104,
-      title: 'Creative Instagram Reel #2',
-      category: 'Short Form',
-      thumbnail: 'https://via.placeholder.com/400x600/FF6B35/FFFFFF?text=Instagram+Reel+2',
-      video: 'https://www.instagram.com/reel/C2zzr_OBjQT/',
-      description: 'High-impact short-form video with dynamic transitions.',
-      client: 'Social Media',
-      year: '2024',
-      duration: '0:30',
-      tags: ['Short Form', 'Transitions', 'Instagram'],
-      isInstagram: true
     }
   ];
 
@@ -320,10 +284,15 @@ const Portfolio: React.FC = () => {
                 </div>
 
                 {/* Category badge */}
-                <div className="absolute top-4 left-4 z-30">
-                  <span className="px-3 py-1 bg-accent-primary/80 backdrop-blur-sm text-white text-xs font-mono tracking-widest rounded-full">
+                <div className="absolute top-4 left-4 z-30 flex flex-col gap-2">
+                  <span className="px-3 py-1 bg-accent-primary/80 backdrop-blur-sm text-white text-xs font-mono tracking-widest rounded-full inline-block">
                     {project.category.toUpperCase()}
                   </span>
+                  {project.showReferenceBadge && (
+                    <span className="px-3 py-1 bg-blue-600/80 backdrop-blur-sm text-white text-xs font-mono tracking-widest rounded-full inline-block">
+                      REFERENCE : I CAN EDIT LIKE THIS TOO
+                    </span>
+                  )}
                 </div>
 
                 {/* Instagram badge */}
