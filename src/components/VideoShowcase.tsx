@@ -27,6 +27,11 @@ const VideoShowcase: React.FC = () => {
        id: 5,
        url: 'https://raw.githubusercontent.com/manitejakeerthi/media-assets/main/IMG_7780_1.mp4',
        title: 'Creative Short'
+     },
+    {
+       id: 6,
+       url: 'https://raw.githubusercontent.com/manitejakeerthi/media-assets/main/Video-624.mp4',
+       title: 'Video Project'
      }
     ];
 

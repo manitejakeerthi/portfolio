@@ -153,6 +153,45 @@ const Portfolio: React.FC = () => {
       duration: '0:60',
       tags: ['Short Form', 'Dynamic', 'YouTube'],
       isInstagram: false
+    },
+    {
+      id: 105,
+      title: 'Instagram Reel #1',
+      category: 'Short Form',
+      thumbnail: 'https://www.instagram.com/reel/DATBqOLy6Fq/media/?size=l',
+      video: 'https://www.instagram.com/reel/DATBqOLy6Fq/',
+      description: 'Creative Instagram reel with dynamic visuals and engaging storytelling.',
+      client: 'Social Media',
+      year: '2024',
+      duration: '0:30',
+      tags: ['Short Form', 'Instagram', 'Creative'],
+      isInstagram: true
+    },
+    {
+      id: 106,
+      title: 'Instagram Reel #2',
+      category: 'Short Form',
+      thumbnail: 'https://www.instagram.com/reel/DANI8OHybD_/media/?size=l',
+      video: 'https://www.instagram.com/reel/DANI8OHybD_/',
+      description: 'High-impact Instagram reel with professional editing.',
+      client: 'Social Media',
+      year: '2024',
+      duration: '0:30',
+      tags: ['Short Form', 'Instagram', 'Professional'],
+      isInstagram: true
+    },
+    {
+      id: 107,
+      title: 'Instagram Reel #3',
+      category: 'Short Form',
+      thumbnail: 'https://www.instagram.com/reel/DABQcykv9IF/media/?size=l',
+      video: 'https://www.instagram.com/reel/DABQcykv9IF/',
+      description: 'Engaging short-form content optimized for Instagram.',
+      client: 'Social Media',
+      year: '2024',
+      duration: '0:30',
+      tags: ['Short Form', 'Instagram', 'Engaging'],
+      isInstagram: true
     }
   ];
 
